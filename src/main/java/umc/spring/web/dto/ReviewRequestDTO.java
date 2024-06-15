@@ -3,6 +3,7 @@ package umc.spring.web.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import umc.spring.validation.annotation.ExistStores;
 
 public class ReviewRequestDTO {
     @Getter
@@ -15,7 +16,7 @@ public class ReviewRequestDTO {
         Float score;
         @NotNull
         Long member;
-        @NotNull
+        @ExistStores
         Long store;
     }
 }
