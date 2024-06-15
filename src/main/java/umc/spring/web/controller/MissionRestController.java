@@ -19,7 +19,7 @@ import umc.spring.web.dto.MissionResponseDTO;
 public class MissionRestController {
     private final MissionCommandService missionCommandService;
 
-    @PostMapping("")
+    @PostMapping("/")
     public ApiResponse<MissionResponseDTO.CreateResultDTO> create(@RequestBody @Valid MissionRequestDTO.CreateMissionDTO request){
         Mission mission = missionCommandService.createMission(request);
         return ApiResponse.onSuccess(MissionConverter.toCreateResultDTO(mission));
