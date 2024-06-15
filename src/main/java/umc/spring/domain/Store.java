@@ -2,6 +2,7 @@ package umc.spring.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import umc.spring.domain.common.BaseEntity;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Store extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String address;
 
+    @ColumnDefault("0")
     private Float score;
 
     @ManyToOne(fetch = FetchType.LAZY)
