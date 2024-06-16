@@ -27,4 +27,12 @@ public class MemberMission extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id")
     private Mission mission;
+
+    // JPA는 컨텍스트 영속성 유지를 제공
+    // 이 상태에서 데이터 값 변경하면 자동으로 변경 사항이 저장
+    // 별도의 update 쿼리를 날리지 않고 Entity 내부에 update 메소드를 만들어 사용
+
+    public void updateStatus(Long memberMissionId){
+        this.status = MissionStatus.COMPLETE;
+    }
 }

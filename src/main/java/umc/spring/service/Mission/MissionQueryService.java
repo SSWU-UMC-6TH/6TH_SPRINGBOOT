@@ -1,11 +1,13 @@
 package umc.spring.service.Mission;
 
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
 import umc.spring.domain.Member;
 import umc.spring.domain.Mission;
 import umc.spring.domain.Store;
 import umc.spring.domain.mapping.MemberMission;
 import umc.spring.web.dto.MemberMissionRequestDTO;
+import umc.spring.web.dto.MemberMissionResponseDTO;
 import umc.spring.web.dto.MissionRequestDTO;
 
 public interface MissionQueryService {
@@ -16,4 +18,7 @@ public interface MissionQueryService {
     Page<Mission> getMissionList(Long storeId, Integer page);
 
     Page<MemberMission> getMyMissionList(Long memberId, Integer page);
+
+    @Transactional
+    MemberMission updateMissionStatus(MemberMissionResponseDTO.UpdateToCompleteMission request);
 }

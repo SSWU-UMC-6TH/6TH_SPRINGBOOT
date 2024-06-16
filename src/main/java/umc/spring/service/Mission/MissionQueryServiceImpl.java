@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import umc.spring.apiPayload.code.status.ErrorStatus;
+import umc.spring.apiPayload.exception.GeneralException;
 import umc.spring.converter.MemberMissionConverter;
 import umc.spring.converter.MissionConverter;
 import umc.spring.domain.Member;
@@ -17,10 +19,8 @@ import umc.spring.repository.MemberRepository;
 import umc.spring.repository.MissionRepository;
 import umc.spring.repository.StoreRepository;
 import umc.spring.web.dto.MemberMissionRequestDTO;
+import umc.spring.web.dto.MemberMissionResponseDTO;
 import umc.spring.web.dto.MissionRequestDTO;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -56,5 +56,15 @@ public class MissionQueryServiceImpl implements MissionQueryService {
 
         Page<MemberMission> myMissionPage = memberMissionRepository.findAllByMemberIdAndStatus(memberId, MissionStatus.CHALLENGING, PageRequest.of(page, 10));
         return myMissionPage;
+    }
+
+    @Override
+    @Transactional
+    public MemberMission updateMissionStatus(MemberMissionResponseDTO.UpdateToCompleteMission request){
+        MemberMission memberMission = memberMissionRepository.findById(request.getMemberMissionId())
+                .orElseThrow(() -> new GeneralException(ErrorStatus.MEMBER_MISSION_NOT_FOUND));
+
+        memberMission.updateStatus(request.getMemberMissionId());
+        return memberMission;
     }
 }
