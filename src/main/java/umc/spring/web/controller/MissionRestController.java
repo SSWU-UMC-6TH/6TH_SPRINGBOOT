@@ -38,14 +38,9 @@ public class MissionRestController {
     }
 
     @PostMapping("/challenging")
-    public ApiResponse<MemberMissionResponseDTO.CreateChallengeMissionDTO> create(@RequestBody @Valid MemberMissionRequestDTO.ChallengeMission request, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return ApiResponse.onFailure(ErrorStatus.CHALLENGE_ALREADY_EXIST.getCode(), ErrorStatus.CHALLENGE_ALREADY_EXIST.getMessage(), null);
-        }
-        else {
+    public ApiResponse<MemberMissionResponseDTO.CreateChallengeMissionDTO> create(@RequestBody @Valid MemberMissionRequestDTO.ChallengeMission request){
             MemberMission memberMission = missionCommandService.createChallengeMission(request);
             return ApiResponse.onSuccess(MemberMissionConverter.toCreateResultDTO(memberMission));
-        }
     }
 
     @GetMapping("/{storeId}")
