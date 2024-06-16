@@ -14,4 +14,6 @@ public interface MissionQueryService {
     MemberMission createChallengeMission(MemberMissionRequestDTO.ChallengeMission request, Member member, Mission mission);
 
     Page<Mission> getMissionList(Long storeId, Integer page);
+
+    Page<MemberMission> getMyMissionList(Long memberId, Integer page);
 }

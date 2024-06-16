@@ -10,11 +10,17 @@ import umc.spring.converter.MissionConverter;
 import umc.spring.domain.Member;
 import umc.spring.domain.Mission;
 import umc.spring.domain.Store;
+import umc.spring.domain.enums.MissionStatus;
 import umc.spring.domain.mapping.MemberMission;
+import umc.spring.repository.MemberMissionRepository;
+import umc.spring.repository.MemberRepository;
 import umc.spring.repository.MissionRepository;
 import umc.spring.repository.StoreRepository;
 import umc.spring.web.dto.MemberMissionRequestDTO;
 import umc.spring.web.dto.MissionRequestDTO;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +28,8 @@ import umc.spring.web.dto.MissionRequestDTO;
 public class MissionQueryServiceImpl implements MissionQueryService {
     private final StoreRepository storeRepository;
     private final MissionRepository missionRepository;
+    private final MemberRepository memberRepository;
+    private final MemberMissionRepository memberMissionRepository;
 
     @Override
     public Mission createMission(MissionRequestDTO.CreateMissionDTO request, Store store){
@@ -41,5 +49,12 @@ public class MissionQueryServiceImpl implements MissionQueryService {
 
         Page<Mission> missionPage = missionRepository.findAllByStore(store, PageRequest.of(page, 10));
         return missionPage;
+    }
+
+    @Override
+    public Page<MemberMission> getMyMissionList(Long memberId, Integer page){
+
+        Page<MemberMission> myMissionPage = memberMissionRepository.findAllByMemberIdAndStatus(memberId, MissionStatus.CHALLENGING, PageRequest.of(page, 10));
+        return myMissionPage;
     }
 }
