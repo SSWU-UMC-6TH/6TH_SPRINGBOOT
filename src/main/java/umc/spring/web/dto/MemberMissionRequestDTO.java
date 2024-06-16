@@ -18,4 +18,10 @@ public class MemberMissionRequestDTO {
         @NotNull
         Long mission;
     }
+
+    @Getter
+    public static class CompleteMission{
+        @NotNull
+        Long memberMission;
+    }
 }

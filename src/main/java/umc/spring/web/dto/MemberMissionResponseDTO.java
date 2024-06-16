@@ -43,4 +43,13 @@ public class MemberMissionResponseDTO {
         LocalDate deadline;
         String missionSpec;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpdateToCompleteMission{
+        Long memberMissionId;
+        LocalDateTime updatedAt;
+    }
 }
